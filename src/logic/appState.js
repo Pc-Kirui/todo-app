@@ -1,3 +1,4 @@
+import { saveToStorage, loadFromStorage } from "./storage.js";
 import Project from "./project.js";
 
 let projects = [];
@@ -6,7 +7,12 @@ let activeProjectId = null;
 // Initialize with default Project
 
 const init = () => {
-  if (projects.length === 0) {
+  const saved = loadFromStorage();
+
+  if (saved) {
+    projects = saved;
+    activeProjectId = projects[0].id;
+  } else {
     const inbox = new Project("Inbox");
     projects.push(inbox);
     activeProjectId = inbox.id;
@@ -18,6 +24,7 @@ const init = () => {
 const addProject = (name) => {
   const project = new Project(name);
   projects.push(project);
+  saveToStorage(projects);
   return project;
 };
 
@@ -27,6 +34,7 @@ const removeProject = (id) => {
   if (activeProjectId === id) {
     activeProjectId = projects.length > 0 ? projects[0].id : null;
   }
+  saveToStorage(projects);
 };
 
 const getProject = (id) => {
@@ -50,7 +58,9 @@ const getActiveProject = () => {
 const addTodo = (title, description, dueDate, priority) => {
   const active = getActiveProject();
   if (active) {
-    return active.addTodo(title, description, dueDate, priority);
+    const todo = active.addTodo(title, description, dueDate, priority);
+    saveToStorage(projects);
+    return todo;
   }
 };
 
@@ -58,17 +68,24 @@ const removeTodo = (id) => {
   const active = getActiveProject();
   if (active) {
     active.removeTodo(id);
+    saveToStorage(projects);
   }
 };
 
 const toggleTodoComplete = (todoId) => {
   const active = getActiveProject();
-  if (active) active.toggleTodoComplete(todoId);
+  if (active) {
+    active.toggleTodoComplete(todoId);
+    saveToStorage(projects);
+  }
 };
 
 const updateTodo = (todoId, fields) => {
   const active = getActiveProject();
-  if (active) active.updateTodo(todoId, fields);
+  if (active) {
+    active.updateTodo(todoId, fields);
+    saveToStorage(projects);
+  }
 };
 
 export {
