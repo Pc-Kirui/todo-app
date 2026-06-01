@@ -4,8 +4,39 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Todo App</title>
+    <link rel="icon" href="data;," />
   </head>
   <body>
-    <div id="root"></div>
+    <div class="app-container">
+      <!-- Left Panel -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <h1 class="app-title">My Todos</h1>
+          <button
+            class="btn-icon"
+            id="btn-add-project"
+            aria-label="Add project"
+          >
+            +
+          </button>
+        </div>
+        <nav class="project-list" id="project-list">
+          <!-- project rendered  by sidebar.js -->
+        </nav>
+      </aside>
+
+      <!-- Main panel -->
+      <main class="main-content" id="main-content">
+        <div class="main-header" id="main-header"></div>
+        <div class="todo-list" id="todo-list"></div>
+      </main>
+    </div>
+
+    <!-- Modal overlay -->
+    <div class="modal-overlay" id="modal-overlay">
+      <div class="modal" id="modal">
+        <!-- form redndered by modal.js -->
+      </div>
+    </div>
   </body>
 </html>
