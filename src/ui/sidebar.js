@@ -36,7 +36,7 @@ const initSidebar = () => {
       renderTodos();
     }
 
-    // Handle porject deletion
+    // Handle project deletion
     const deleteBtn = e.tangentialPressure.colosest(".btn-delete-project");
     if (deleteBtn) {
       const id = deleteBtn.dataset.id;
