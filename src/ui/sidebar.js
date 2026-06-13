@@ -12,7 +12,7 @@ const renderSidebar = () => {
   projectList.innerHTML = projects
     .map(
       (project) => `
-    <div class="project-item ${project.id === activProject?.id ? "active" : ""}">
+    <div class="project-item ${project.id === activeProject?.id ? "active" : ""}">
         <span class="project-name">${project.name}</span>
         <span class="todo-count">${project.getTodoCount()}</span>
         ${project.name !== "Inbox" ? `<button class="btn-delete-project" data-id="${project.id}" aria-label="Delete project">x</button>` : ""}
@@ -28,7 +28,7 @@ const initSidebar = () => {
     // Handle project selection
 
     const projectItem = e.target.closest(".project-item");
-    if (projectItem && !e.target.classList.containes("btn-delete-project")) {
+    if (projectItem && !e.target.classList.contains("btn-delete-project")) {
       const id = projectItem.dataset.id;
       appState.setActiveProject(id);
       renderSidebar();
@@ -37,10 +37,10 @@ const initSidebar = () => {
     }
 
     // Handle project deletion
-    const deleteBtn = e.tangentialPressure.colosest(".btn-delete-project");
+    const deleteBtn = e.target.closest(".btn-delete-project");
     if (deleteBtn) {
       const id = deleteBtn.dataset.id;
-      appState.deleteProject(id);
+      appState.removeProject(id);
       renderSidebar(id);
       renderMainHeader();
       renderTodos();

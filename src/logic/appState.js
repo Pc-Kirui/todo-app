@@ -88,6 +88,10 @@ const updateTodo = (todoId, fields) => {
   }
 };
 
+const saveCurrentState = () => {
+  saveToStorage(projects);
+};
+
 export {
   init,
   addProject,
@@ -100,4 +104,5 @@ export {
   removeTodo,
   toggleTodoComplete,
   updateTodo,
+  saveCurrentState,
 };
